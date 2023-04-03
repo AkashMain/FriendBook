@@ -6,18 +6,20 @@ Rails.application.routes.draw do
 
   # resources :users do 
   #   resources :friendships
-  resources :friendships do 
-    collection do
-      get :pending_req
-    end
+  resources :users do 
+    resources :friendships do 
+      collection do
+        get :pending_req
+      end
 
-    member do 
-      post :create_request
-      post :accept_request
-      post :decline_request
+      member do 
+        post :create_request
+        post :accept_request
+        post :decline_request
+      end
     end
   end
-
+   
   resources :posts do
     resources :comments, only: [:create, :destroy] do
       resources :likes, only: [:create, :destroy]

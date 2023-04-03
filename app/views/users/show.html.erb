@@ -2,47 +2,16 @@
 <p>Find me in app/views/users/show.html.erb</p>
 
 
-<div class="friendship-requests">
-  <h2>Friendship Requests</h2>
+<h2>Friends</h2>
 
-  <% if @pending_friendship_requests_received.any? %>
-    <h3>Pending Requests</h3>
-
+  <% if @friends.any? %>
     <ul>
-      <% @pending_friendship_requests_received.each do |request| %>
-        <li>
-          <%= link_to request.sender.fname, request.sender %>
-          <%= link_to "Accept", accept_friendship_path(request), method: :patch %>
-          <%= link_to "Decline", decline_friendship_path(request), method: :delete %>
-        </li>
+      <% @friends.each do |friend| %>
+        <li><%= link_to friend.email, friend %></li>
       <% end %>
     </ul>
-  <% end %>
-
-  <% if @accepted_friendship_requests_received.any? %>
-    <h3>Accepted Requests</h3>
-
-    <ul>
-      <% @accepted_friendship_requests_received.each do |request| %>
-        <li>
-          <%= link_to request.sender.name, request.sender %>
-        </li>
-      <% end %>
-    </ul>
-  <% end %>
-
-  <% if @declined_friendship_requests_received.any? %>
-    <h3>Declined Requests</h3>
-
-    <ul>
-      <% @declined_friendship_requests_received.each do |request| %>
-        <li>
-          <%= link_to request.sender.name, request.sender %>
-        </li>
-      <% end %>
-    </ul>
+  <% else %>
+    <p>No friends yet.</p>
   <% end %>
 </div>
-
-
 

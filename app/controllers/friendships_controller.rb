@@ -9,7 +9,7 @@ class FriendshipsController < ApplicationController
         # @friendship = Friendship.new(friendship_params)
         # @friend = User.find(params[:friend_id])
         @friend = User.find(params[:receiver_id])
-        @friendship = Friendship.new(sender_id: current_user, receiver_id: @friend,status: :pending)
+        @friendship = current_user.sent_friend_requests.build(sender_id: current_user, receiver_id: @friend,status: :pending)
 
         if @friendship.save  
             flash[:success] = 'Friend request sent to #{friend.fname}'
@@ -21,7 +21,7 @@ class FriendshipsController < ApplicationController
     end
 
     def accept_request
-        @friendship = Friendship.find(params[:id])
+        @friendship = Friendship.find(params[:id])                     #retrieve existing record
         if @friendship.accepted! 
             flash[:success] = 'Friend request accepted'
         else
@@ -32,7 +32,7 @@ class FriendshipsController < ApplicationController
     end
 
     def decline_request
-        @friendship = Friendship.find(params[:id])
+        @friendship = Friendships.find(params[:id])
         if @friendship.declined!
             flash[:success] = 'Friend request declined'
         else
@@ -41,6 +41,12 @@ class FriendshipsController < ApplicationController
 
         redirect_to users_path
     end
+    
+    def destroy 
+        @friendship = Friendship.find(parmas[:id])
+        @friendship.destroy
+        flash[:notcie] = 'Friend removed'
+        redirect_to users_path
 
     private
     

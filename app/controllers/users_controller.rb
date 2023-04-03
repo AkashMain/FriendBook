@@ -9,21 +9,21 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @post = @user.posts.order(created_at: :desc)
-    @pending_friendship_requests_received = @user.pending_requests
-    @accepted_friendship_requests_received = @user.accepted_requests
-    @declined_friendship_requests_received = @user.declined_requests        
+    @friends = @user.friends
+    # @pending_friendship_requests_received = User.pending_requests.find(params[:id])
+    # @accepted_friendship_requests_received = @user.accepted_requests
+    # @declined_friendship_requests_received = @user.declined_requests        
   end
 
   private 
   
   def user_params 
-    params.require(:user).permit(:fname,:lname,:email,:password,:password_confirmation)
+    params.require(:user).permit(:email,:password,:password_confirmation)
   end
 
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
-  
   
 end
 
