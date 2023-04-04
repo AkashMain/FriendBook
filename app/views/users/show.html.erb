@@ -7,11 +7,12 @@
   <% if @friends.any? %>
     <ul>
       <% @friends.each do |friend| %>
-        <li><%= link_to friend.email, friend %></li>
+        <li><%= link_to friend.fname, friend %></li>
       <% end %>
     </ul>
   <% else %>
     <p>No friends yet.</p>
   <% end %>
 </div>
+
 

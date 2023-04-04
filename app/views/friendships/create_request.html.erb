@@ -1,12 +1,13 @@
 <h1> Sending Friend Request....</h1>
 
-<p> Your friend request has been sent </p>
-
 
 <h1>New Friendship Request</h1>
 
-<%= form_with model: [@friendship.sender, @friendship], url: friendships_path do |f| %>
+<%= form_with model: [@friendship.sender, @friendship], url: create_request_user_friendship_path do |f| %>
   <%= hidden_field_tag :receiver_id, @friendship.receiver_id %>
 
-  <%= f.submit "Send Request", class: "btn btn-primary" %>
+  <%= f.submit "Send Request"%>
+
 <% end %>
+
+<p> Your friend request has been sent </p>

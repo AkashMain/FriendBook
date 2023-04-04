@@ -1,21 +1,20 @@
 Rails.application.routes.draw do
+  devise_for :users
+
   get 'users/index'
   get 'users/show'
   root 'posts#index'
-  devise_for :users
+  get 'users/:user_id/friendships', to: 'friendships#index'
+  # post '/users/:user_id/friendships/:receiver_id/create_request', to: 'friendships#create_request', as: 'create_request'
 
   # resources :users do 
   #   resources :friendships
   resources :users do 
-    resources :friendships do 
-      collection do
-        get :pending_req
-      end
-
+    resources :friendships , only: [:index, :show] do 
       member do 
         post :create_request
-        post :accept_request
-        post :decline_request
+        put :accept_request
+        put :decline_request
       end
     end
   end
