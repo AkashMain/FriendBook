@@ -1,2 +1,11 @@
-<h1>Posts#show</h1>
-<p>Find me in app/views/posts/show.html.erb</p>
+<h1>POST</h1>
+
+    <%= @post.body%>
+
+    <h2>Comments</h2>
+    <% @post.comments.each do |comment|%>
+        <p><%= comment.content %></p>
+    <%end%>
+
+    <h3>Add comments</h3>
+    <%= render 'comments/form', post:@post%>

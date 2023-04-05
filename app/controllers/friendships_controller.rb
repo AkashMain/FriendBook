@@ -14,19 +14,20 @@ class FriendshipsController < ApplicationController
     end
 
     def create_request
-        #@friendship = current_user.frendships.build(friendship_params)
-        # @friendship = Friendship.new(friendship_params)
         @suggested_user = User.find(params[:id])
         @friendship = current_user.sent_friend_requests.build(receiver_id: @suggested_user.id ,status: :pending)
-
-        if @friendship.save  
-            flash[:success] = "Friend request sent to #{@suggested_user.fname}"
-            redirect_to users_path
-        else
-            flash[:error] = "Error while sending friend request"
-            redirect_to users_path
-        end
-
+        # if Friendship.exists?(receiver_id: @suggested_user.id,status: :accepted)  
+            # flash[:error] = "Already friends!!"          
+            # redirect_to current_user
+        # else        
+            if @friendship.save  
+                # flash[:success] = "Friend request sent to #{@suggested_user.fname}"
+                redirect_to users_path, notice: "Friend request sent to #{@suggested_user.fname}"
+            else
+                # flash[:error] = "Error while sending friend request"
+                redirect_to users_path, notice: "Error while sending friend request"
+            end
+        # end
     end
 
     def accept_request

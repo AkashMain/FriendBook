@@ -1,4 +1,7 @@
-<h1>Friendship Requests</h1>
+
+<%= "Logged in as #{current_user.fname}"%><br>
+
+<h1>Friendship Requests</h1><br><br>
 <div class="friendship-requests">
 
   <% if @pending_requests.any? %>
@@ -18,7 +21,7 @@
   <% end %>
 
   <% if @accepted_requests.any? %>
-    <h3>Accepted Requests</h3>
+    <h3>Sent and Accepted Requests</h3>
 
     <ul>
       <% @accepted_requests.each do |request| %>
@@ -30,7 +33,7 @@
   <% end %>
 
   <% if @declined_requests.any? %>
-    <h3>Declined Requests</h3>
+    <h3>Declined Requests By</h3>
 
     <ul>
       <% @declined_requests.each do |request| %>
@@ -55,4 +58,9 @@
 </ul>
 
 
-                <%# user_friendship GET    /users/:user_id/friendships/:id(.:format)                                                friendships#show %>
+<!-- Render flash messages -->
+<% flash.each do |key, value| %>
+  <div class="alert alert-<%= key %>">
+    <%= value %>
+  </div>
+<% end %>

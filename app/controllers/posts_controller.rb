@@ -20,14 +20,14 @@ class PostsController < ApplicationController
     
     if @post.save
       flash[:notice] = "Post was successfully created"
-      redirect_to @post
+      redirect_to posts_path
     else
       render :new
     end
   end
 
   def destroy 
-    @post = Post.find(params[:id])
+    @post = current_user.posts.find(params[:id])
     @post.destroy
     flash[:notice] = "Post was successfult deleted"
     redirect_to root_path
