@@ -1,7 +1,7 @@
 
 <%= "Logged in as #{current_user.fname}"%><br>
 
-<h1>Friendship Requests</h1><br><br>
+<h1>Friendship Requests</h1><br>
 <div class="friendship-requests">
 
   <% if @pending_requests.any? %>
@@ -12,9 +12,9 @@
         <li>
           <%= link_to request.sender.fname, request.sender %>
           <br>
-          <%= link_to "Accept", accept_request_user_friendship_path(request.id, user_id: current_user), method: :put %>
+          <%= link_to "Accept", accept_request_user_friendship_path(request.id, user_id: current_user), method: :put%>
           <br>
-          <%= link_to "Decline", decline_request_user_friendship_path(request.id, user_id: current_user), method: :put %>
+          <%= link_to "Decline", decline_request_user_friendship_path(request.id, user_id: current_user), method: :put%>
         </li>
       <% end %>
     </ul>
@@ -46,7 +46,6 @@
 </div>
 
 
-
 <h1>Send request to:-</h1>
 
 <ul>
@@ -57,10 +56,28 @@
   <% end %>
 </ul>
 
+<h3>Friends</h3>
+<ul>
+  <% @friends_show.each do |f|%>
+    <li>
+      <% if f.sender.fname==current_user.fname%>
+        <%= f.receiver.fname%>
+      <%else%>
+        <%= f.sender.fname%>
+      <%end%>
+    </li>
+  <%end%>  
+</ul>
 
 <!-- Render flash messages -->
 <% flash.each do |key, value| %>
   <div class="alert alert-<%= key %>">
     <%= value %>
   </div>
+<% end %>
+
+<% if user_signed_in? %>
+  <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
+<% else %>
+  <%= link_to "Sign iin", new_user_session_path %>
 <% end %>

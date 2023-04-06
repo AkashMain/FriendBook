@@ -1,0 +1,10 @@
+
+<li>
+  <%= link_to @friendship_request.sender.fname, @friendship_request.sender %>
+    <%= link_to user.fname, create_request_user_friendship_path(user.id, user_id: current_user), method: :post,remote: true %>
+
+  <br>
+  <%= link_to "Accept", accept_request_user_friendship_path(@friendship_request.id, user_id: current_user), method: :put, remote: true %>
+  <br>
+  <%= link_to "Decline", decline_request_user_friendship_path(@friendship_request.id, user_id: current_user), method: :put, remote: true %>
+</li>

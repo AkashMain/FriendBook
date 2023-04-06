@@ -6,6 +6,7 @@ class FriendshipsController < ApplicationController
         @accepted_requests = current_user.sent_friend_requests.accepted_requests
         @declined_requests = current_user.sent_friend_requests.declined_requests
         # @suggested_users = User.find(params[:receiver_id])
+        @friends_show = Friendship.friends_of(current_user) 
     end
     
     def show  
@@ -15,42 +16,48 @@ class FriendshipsController < ApplicationController
 
     def create_request
         @suggested_user = User.find(params[:id])
-        @friendship = current_user.sent_friend_requests.build(receiver_id: @suggested_user.id ,status: :pending)
-        # if Friendship.exists?(receiver_id: @suggested_user.id,status: :accepted)  
-            # flash[:error] = "Already friends!!"          
-            # redirect_to current_user
-        # else        
-            if @friendship.save  
-                # flash[:success] = "Friend request sent to #{@suggested_user.fname}"
-                redirect_to users_path, notice: "Friend request sent to #{@suggested_user.fname}"
-            else
-                # flash[:error] = "Error while sending friend request"
-                redirect_to users_path, notice: "Error while sending friend request"
+        @friendship = current_user.sent_friend_requests.build(receiver_id: @suggested_user.id ,status: :pending)    
+        if @friendship.save  
+            # flash[:success] = "Friend request sent to #{@suggested_user.fname}"
+            respond_to do |format|
+                format.html {redirect_to user_friendships_path, notice: "Friend request sent to #{@suggested_user.fname}"}
+                format.js
             end
-        # end
+        else
+            # flash[:error] = "Error while sending friend request"
+            respond_to do |format|
+                format.html {redirect_to user_friendships_path, notice: "Error while sending friend request"}
+                format.js
+            end
+        end
     end
 
     def accept_request
         @friendship = Friendship.find(params[:id])                     #retrieve existing record
         if @friendship.accepted! 
-            flash[:success] = 'Friend request accepted'
-            redirect_to current_user
+            respond_to do |format|
+                format.html {redirect_to user_friendships_path, notice: "Friend request accepted"}
+                format.js      
+            end      
         else
-            flash[:error] = 'Error while accepting friend request'
-            redirect_to current_user
+            respond_to do |format|
+                format.html {redirect_to user_friendships_path, notice: "Error while accepting friend request"}         #current_user 
+                format.js 
+            end
         end
-
     end
 
     def decline_request
         @friendship = Friendship.find(params[:id])
-        if @friendship.declined!   
+        if @friendship.declined!    
             flash[:success] = 'Friend request declined'
         else
             flash[:error] = 'Error while declining friend request'
         end
-
-        redirect_to users_path
+        respond_to do |format|
+            format.html {redirect_to user_friendships_path}
+            format.js 
+        end
     end
     
     def destroy 

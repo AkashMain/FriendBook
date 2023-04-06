@@ -64,3 +64,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise'
 gem 'omniauth-facebook'
 gem 'pry', '~> 0.13.1'
+gem 'jquery-rails'
+gem 'hirb', '~> 0.7.3'
