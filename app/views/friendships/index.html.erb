@@ -4,70 +4,82 @@
 <h1>Friendship Requests</h1><br>
 <div class="friendship-requests">
 
-  <% if @pending_requests.any? %>
-    <h3>Pending Requests</h3>
+  <div class="pending-requests">
+    <% if @pending_requests.any? %>
+      <h3>Pending Requests</h3>
+    
+      <ul>
+        <% @pending_requests.each do |request| %>
+          <li id="friend-request- <%= request.id %>">
+            <%= link_to request.sender.fname, request.sender %>
+            <br>
+            <%= link_to "Accept", accept_request_user_friendship_path(request.id, user_id: current_user), class: "accept-button", method: :put, remote: true %>
+            <br>
+            <%= link_to "Decline", decline_request_user_friendship_path(request.id, user_id: current_user), class: "decline-button", method: :put, remote: true %>
+          </li>
+        <% end %>
+      </ul>
+      <% end %>
+  </div>
+
+  <div class="accepted-requests">
+    <% if @accepted_requests.any? %>
+      <h3>Sent and Accepted Requests</h3>
+
+      <ul>
+        <% @accepted_requests.each do |request| %>
+          <li>
+            <%= link_to request.receiver.fname, request.receiver %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+
+  <div class="declined-requests">
+    <% if @declined_requests.any? %>
+      <h3>Declined Requests By</h3>
+
+      <ul>
+        <% @declined_requests.each do |request| %>
+          <li>
+            <%= link_to request.receiver.fname, request.receiver %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+
+  <div class="send-requests">
+    <h1>Send request to:-</h1>
 
     <ul>
-      <% @pending_requests.each do |request| %>
+      <% @users_except_me.each do |user| %>
         <li>
-          <%= link_to request.sender.fname, request.sender %>
-          <br>
-          <%= link_to "Accept", accept_request_user_friendship_path(request.id, user_id: current_user), method: :put%>
-          <br>
-          <%= link_to "Decline", decline_request_user_friendship_path(request.id, user_id: current_user), method: :put%>
+          <%= link_to user.fname, create_request_user_friendship_path(user.id, user_id: current_user), method: :post, remote: true %>
         </li>
       <% end %>
     </ul>
-  <% end %>
-
-  <% if @accepted_requests.any? %>
-    <h3>Sent and Accepted Requests</h3>
-
-    <ul>
-      <% @accepted_requests.each do |request| %>
-        <li>
-          <%= link_to request.receiver.fname, request.receiver %>
-        </li>
-      <% end %>
-    </ul>
-  <% end %>
-
-  <% if @declined_requests.any? %>
-    <h3>Declined Requests By</h3>
-
-    <ul>
-      <% @declined_requests.each do |request| %>
-        <li>
-          <%= link_to request.receiver.fname, request.receiver %>
-        </li>
-      <% end %>
-    </ul>
-  <% end %>
+  </div>
 </div>
 
+<div class="show-friends">
+  <h3>Friends</h3>
+  <ul>
+    <% @friends_show.each do |f|%>
+      <li>
+        <% if f.sender.fname==current_user.fname%>
+          <%= f.receiver.fname%>
+        <%else%>
+          <%= f.sender.fname%>
+        <%end%>
+      </li>
+    <%end%>  
+  </ul>
+</div>
 
-<h1>Send request to:-</h1>
+<div id="friends-list"></div>
 
-<ul>
-  <% @users_except_me.each do |user| %>
-    <li>
-      <%= link_to user.fname, create_request_user_friendship_path(user.id, user_id: current_user), method: :post %>
-    </li>
-  <% end %>
-</ul>
-
-<h3>Friends</h3>
-<ul>
-  <% @friends_show.each do |f|%>
-    <li>
-      <% if f.sender.fname==current_user.fname%>
-        <%= f.receiver.fname%>
-      <%else%>
-        <%= f.sender.fname%>
-      <%end%>
-    </li>
-  <%end%>  
-</ul>
 
 <!-- Render flash messages -->
 <% flash.each do |key, value| %>

@@ -1,0 +1,8 @@
+
+$(".pending-requests").hide();
+
+alert("Friendship request accepted");
+
+$(".show-friends").hide();
+
+$('#friends-list').html("<%= escape_javascript(render('friends_list'))%>");

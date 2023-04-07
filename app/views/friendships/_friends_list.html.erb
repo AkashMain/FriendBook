@@ -1,0 +1,16 @@
+<div class="show-friends">
+  <% if @friends_show.any?%>  
+    <h3>Friends</h3>
+    <ul>
+        <% @friends_show.each do |f|%>
+        <li>
+            <% if f.sender.fname==current_user.fname%>
+            <%= f.receiver.fname%>
+            <%else%>
+            <%= f.sender.fname%>
+            <%end%>
+        </li>
+        <%end%>  
+    </ul>
+  <%end%>  
+</div>

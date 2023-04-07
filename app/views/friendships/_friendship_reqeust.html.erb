@@ -1,10 +1,12 @@
 
-<li>
-  <%= link_to @friendship_request.sender.fname, @friendship_request.sender %>
-    <%= link_to user.fname, create_request_user_friendship_path(user.id, user_id: current_user), method: :post,remote: true %>
-
-  <br>
-  <%= link_to "Accept", accept_request_user_friendship_path(@friendship_request.id, user_id: current_user), method: :put, remote: true %>
-  <br>
-  <%= link_to "Decline", decline_request_user_friendship_path(@friendship_request.id, user_id: current_user), method: :put, remote: true %>
+<li id="request-<%= friendship_request.id %>">
+  <%= link_to friendship_request.sender.fname, friendship_request.sender %>
+  <div class="friendship-request-actions">
+    <% if friendship_request.pending? %>
+      <%= link_to "Accept", accept_request_user_friendship_path(friendship_request.id, user_id: current_user), method: :put, remote: true, class: "accept-request-button", data: { request_id: friendship_request.id } %>
+      <%= link_to "Decline", decline_request_user_friendship_path(friendship_request.id, user_id: current_user), method: :put, remote: true, class: "decline-request-button", data: { request_id: friendship_request.id } %>
+    <% elsif friendship_request.accepted? %>
+      <%= link_to "Unfriend", destroy_user_friendship_path(friendship_request.id, user_id: current_user), method: :delete, remote: true, class: "unfriend-button", data: { request_id: friendship_request.id } %>
+    <% end %>
+  </div>
 </li>

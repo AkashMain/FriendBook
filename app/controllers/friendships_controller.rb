@@ -15,29 +15,30 @@ class FriendshipsController < ApplicationController
     end
 
     def create_request
+        @friends_show = Friendship.friends_of(current_user) 
         @suggested_user = User.find(params[:id])
         @friendship = current_user.sent_friend_requests.build(receiver_id: @suggested_user.id ,status: :pending)    
         if @friendship.save  
-            # flash[:success] = "Friend request sent to #{@suggested_user.fname}"
             respond_to do |format|
                 format.html {redirect_to user_friendships_path, notice: "Friend request sent to #{@suggested_user.fname}"}
-                format.js
+                format.js 
+            # render file: '/create_request.js.erb'
             end
         else
-            # flash[:error] = "Error while sending friend request"
             respond_to do |format|
                 format.html {redirect_to user_friendships_path, notice: "Error while sending friend request"}
-                format.js
+                format.js 
             end
         end
     end
 
     def accept_request
+        @friends_show = Friendship.friends_of(current_user) 
         @friendship = Friendship.find(params[:id])                     #retrieve existing record
         if @friendship.accepted! 
             respond_to do |format|
                 format.html {redirect_to user_friendships_path, notice: "Friend request accepted"}
-                format.js      
+                format.js 
             end      
         else
             respond_to do |format|
@@ -48,6 +49,7 @@ class FriendshipsController < ApplicationController
     end
 
     def decline_request
+        @friends_show = Friendship.friends_of(current_user)
         @friendship = Friendship.find(params[:id])
         if @friendship.declined!    
             flash[:success] = 'Friend request declined'
