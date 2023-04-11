@@ -1,16 +1,21 @@
-<%= "Logged in as #{current_user.fname}"%><br>
-
-<h1>Posts#index</h1>
-<p>Find me in app/views/posts/index.html.erb</p>
+<%= "Logged in as #{current_user.fname}"%><br><br>
 
 <h1>All Posts</h1>
 
 <ul>
   <% @posts.each do |post| %>
     <li>
-      <%= link_to post.id, post %>
+      <p>
+      <%= link_to post.body, post, style: 'color:#191911'%>
+      <% if user_signed_in? && current_user.id==post.user.id%> 
+        <%= link_to 'Delete', post_path(post.id), method: :delete, data: {confirm: "Do you want to delete this post"},style: 'color:#E34234' %><br>
+      <%end%> 
+      </p> 
     </li>
   <% end %>
 </ul>
 
-<%= link_to "New Post", new_post_path %>
+<%= link_to "New Post", new_post_path, style: 'color:#2E8B57' %>
+
+<br><br><br>
+  

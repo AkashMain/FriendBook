@@ -28,6 +28,9 @@ class PostsController < ApplicationController
 
   def destroy 
     @post = current_user.posts.find(params[:id])
+    # unless @post.editable_by?(current_user)
+    #   redirect_to @post, alert: "You are not authorized to delete this post."
+    # end
     @post.destroy
     flash[:notice] = "Post was successfult deleted"
     redirect_to root_path

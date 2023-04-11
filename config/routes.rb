@@ -15,6 +15,7 @@ Rails.application.routes.draw do
         post :create_request
         put :accept_request
         put :decline_request
+        delete :destroy
       end
     end
   end

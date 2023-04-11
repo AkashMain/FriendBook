@@ -1,0 +1,48 @@
+
+-Add a class to your link element to identify it in your JavaScript code
+
+<%= link_to "Accept", accept_friendship_path(friendship), class: "accept-friendship" %>
+
+-In JavaScript code, add an event listener to handle the click event
+ on the link element, prevent the default behavior of the link (i.e. navigating 
+ to a new page), and send an AJAX request to the server to update the friendship status:
+
+$(document).on("click", ".accept-friendship", function(event) {
+  event.preventDefault(); // Prevent the link from navigating to a new page
+
+  // Send an AJAX request to the server to update the friendship status
+  $.ajax({
+    type: "PUT",
+    url: $(this).attr("href"),
+    url: '/friends_list',
+    data: { status: "accepted" },
+    dataType: "script",
+    success: function() {
+      // Update the page after the AJAX request is successful
+      $(".pending-requests").hide();
+      alert("Friendship request accepted");
+      $(".show-friends").hide();
+      $('#friends-list').load("/friends_list");
+    }
+  });
+});
+
+-In controller, update the friendship status and respond with JavaScript:
+
+def accept 
+    @friendship.accepted!
+    respond_to do |format|
+        format.js 
+    end
+end
+
+-In accept_request.js.erb file, update the page using JavaScript:
+
+$('.pending-requests').hide()
+alert("Friend reqeust accepted!!!")
+$('.show-friends').hide()
+$(#friends-list).load("/friends-list")
+
+
+
+

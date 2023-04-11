@@ -5,4 +5,15 @@ alert("Friendship request accepted");
 
 $(".show-friends").hide();
 
-$('#friends-list').html("<%= escape_javascript(render('friends_list'))%>");
+$('#friends-list').html("<%= escape_javascript(render('friends_list'))%>");         //alternative .append() which adds new content to existing content of an element
+                                                                                    //.html() replaces existing content of an element with new content                                                                                            
+
+
+<%# $.ajax({
+  type: "GET",
+  url: "/friends",
+  dataType: "script",
+  success: function(response) {
+    $('#friends-list').empty().append(response);
+  }
+}); %>

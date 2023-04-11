@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_post
-
+  before_action :authenticate_user!
 
   def new
     @comment = @post.comments.build()
@@ -30,6 +30,7 @@ class CommentsController < ApplicationController
 
   def destroy 
     @comment = Comment.find(params[:id])
+    # @comment = @post.comments.find(params[:id])
     @comment.destroy 
     redirect_to @post, notice: "Comment was successfuly deleted"
   end
