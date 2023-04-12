@@ -3,6 +3,10 @@ class PostsController < ApplicationController
   
   def index
     @posts = Post.all.order(created_at: :desc)
+    # @like = current_user.posts.find(params[:id]).likes.find(params[:like_id])
+    # @like = Like.find_by(user_id: current_user.id, post_id: params[:id])              
+    # @like = Post.find(params[:id]).likes.find(params[:id])
+
   end
 
   def show

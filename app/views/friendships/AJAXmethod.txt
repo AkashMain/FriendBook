@@ -46,3 +46,12 @@ $(#friends-list).load("/friends-list")
 
 
 
+
+
+
+<%@likes.each do |l|%>
+              <% if l.user.id==current_user.id && l.post.id==post.id %>
+                <%= link_to 'UNLIKE', post_like_path(post,l), method: :delete%>
+              <%end%>
+            <%end%>    
+          

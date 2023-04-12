@@ -6,16 +6,27 @@
   <% @posts.each do |post| %>
     <li>
       <p>
+      <%= "=>> #{post.user.fname}"%><br>
       <%= link_to post.body, post, style: 'color:#191911'%>
       <% if user_signed_in? && current_user.id==post.user.id%> 
         <%= link_to 'Delete', post_path(post.id), method: :delete, data: {confirm: "Do you want to delete this post"},style: 'color:#E34234' %><br>
       <%end%> 
+      <br>
+      Likes: <%= post.likes.count %><br>
+        <% if user_signed_in? && current_user.id != post.user.id %>
+          <% like = Like.find_by(user_id: current_user.id, post_id: post.id) %>
+          <%if like.present?%>
+            <%= button_to 'Unlike', post_like_path(like, post_id: post), method: :delete ,style: 'color:#E34234'%>                   
+          <%else%>
+            <%= button_to 'Like', post_likes_path(post), method: :post, style: 'color:#2E8B57'%>
+          <%end%>
+        <% end %>
       </p> 
     </li>
   <% end %>
 </ul>
 
-<%= link_to "New Post", new_post_path, style: 'color:#2E8B57' %>
+<%= link_to "New Post", new_post_path, style: 'color:0000FF' %>
 
 <br><br><br>
   
