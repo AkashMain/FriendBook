@@ -1,9 +1,4 @@
-<%= "Logged in as #{current_user.fname}"%><br><br>
-
-<h1>All Posts</h1>
-
-<ul>
-  <div class="show-posts">
+<div class="show-posts">
     <% @posts.each do |post| %>
       <li>
         <p>
@@ -32,18 +27,3 @@
       </li>
     <% end %>
   </div>
-</ul>
-
-<div id="showing-posts"></div>
-
-<%= link_to "New Post", new_post_path, style: 'color:0000FF' %>
-
-<br><br><br>
-  
-
-<!-- Render flash messages -->
-<% flash.each do |key, value| %>
-  <div class="alert alert-<%= key %>">
-    <%= value %>
-  </div>
-<% end %>
