@@ -1,5 +1,7 @@
 module ApplicationHelper
-  # def current_user
-  #   @current_user ||= User.find_by(id: session[:user_id])
-  # end
+  def render_flash_messages
+    flash.map do |key, value|
+      content_tag(:div, value, class: "alert alert-#{key}")
+    end.join.html_safe
+  end
 end

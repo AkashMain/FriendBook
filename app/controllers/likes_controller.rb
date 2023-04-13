@@ -1,40 +1,66 @@
 class LikesController < ApplicationController
+  before_action :authenticate_user!
+
   
   def create
     @posts = Post.all.order(created_at: :desc)
     @post = Post.find(params[:post_id])
-    @like = @post.likes.build(user: current_user)
+    # @like = @post.likes.build(user: current_user)
+    @like = find_likable.likes.build(user: current_user)
 
-    if @like.save 
-      respond_to do |format| 
-        format.html {redirect_to posts_path, notice: 'You liked this post'}
-        format.js
+    if @like.save
+      if @like.likable_type=="Post"
+        respond_to do |format| 
+          format.html {redirect_to posts_path, notice: 'You liked this POST'}
+          # format.js
+        end
+      else 
+        respond_to do |format| 
+          format.html {redirect_to post_path(@post), notice: 'You liked this COMMENT'}
+          # format.js
+        end 
       end
     else 
       respond_to do |format| 
         format.html {redirect_to posts_path, notice: 'Sorry, something went wrong'}
-        format.js
+        # format.js
       end 
     end
   end
 
   def destroy
-    # binding.pry
     @posts = Post.all.order(created_at: :desc)
     @post = Post.find(params[:post_id])
-    @like = @post.likes.find(params[:id])
+    # @like = @post.likes.find(params[:id])
+    @like = find_likable.likes.find(params[:id])
 
     if @like.user == current_user && @like.destroy
-      respond_to do |format| 
-        format.html {redirect_to posts_path, notice: "You unliked this post."}
-        format.js
+      if @like.likable_type=="Post"
+        respond_to do |format| 
+          format.html {redirect_to posts_path, notice: 'You disliked this post'}
+          # format.js
+        end
+      else 
+        respond_to do |format| 
+          format.html {redirect_to post_path(@post), notice: 'You disliked this COMMENT'}
+          # format.js
+        end 
       end
     else
       respond_to do |format| 
         format.html {redirect_to posts_path, alert: "Sorry, something went wrong. Please try again."}
-        format.js 
+        # format.js 
       end
     end
   end
 
+  private 
+
+  def find_likable 
+    if(params[:comment_id]).present?
+      Comment.find(params[:comment_id])
+    else 
+      Post.find(params[:post_id])
+    end  
+  end
 end

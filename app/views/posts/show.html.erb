@@ -1,6 +1,5 @@
 <h2>POST :-</h2>
 <br>
-
 <p> 
     <%= @post.body%> 
 </p>
@@ -8,14 +7,24 @@
 <h4>Comments</h4> <br>
 <% @post.comments.each do |comment|%>
     <p>
-    <%= "-> #{comment.user.fname}"%> <br>
+    <%= post_author(comment)%> <br>
     <%= comment.content %> 
     <%if current_user.id==comment.user.id%>
         <%= link_to 'delete', post_comment_path(@post,comment), method: :delete, data: {confirm: "Do you want to delete this comment"}, style: 'color:#E34234' %> 
-    <%end%></p> 
+    <%end%>
+    <div class='show-comment-likes'>
+        Likes: <%= Like.where(likable_type: "Comment", likable_id: comment.id).count%><br>
+        <%if user_signed_in? && current_user.id!=@post.user.id && current_user.id!=comment.user.id%>
+            <% like = Like.find_by(user_id: current_user.id, likable_type: "Comment", likable_id: comment.id)%>
+            <%= like_button_comment(@post,comment)%>      
+        <%end%>          
+    </div>
+    </p> 
 <%end%>
 
 <%if current_user.id!=@post.user.id%>
     <h5>Add comments</h5><br>
     <%= render 'comments/form', post:@post%>
 <%end%>
+
+<%= render_flash_messages %>                              

@@ -7,25 +7,16 @@
     <% @posts.each do |post| %>
       <li>
         <p>
-          <%= "=>> #{post.user.fname}"%><br>
+          <%= post_author(post)%><br>
           <%= link_to post.body, post, style: 'color:#191911'%>
           <% if user_signed_in? && current_user.id==post.user.id%> 
-            <%= link_to 'Delete', post_path(post.id), method: :delete, data: {confirm: "Do you want to delete this post"},style: 'color:#E34234' %><br>
+            <%= delete_post(post) %><br>
           <%end%> 
           <br>
           <div class="show-likes">
-            Likes: <%= post.likes.count %><br>
+            Likes: <%= Like.where(likable_id: post.id, likable_type: "Post").count %><br>
               <% if user_signed_in? && current_user.id != post.user.id %>
-                <% like = Like.find_by(user_id: current_user.id, post_id: post.id) %>
-                <%if like.present?%>
-                  <%= button_to post_like_path(like, post_id: post), method: :delete, remote: true, style: 'color:#E34234' do%>
-                    <span>&#128078;</span>
-                  <%end%>  
-                <%else%>
-                  <%= button_to post_likes_path(post), method: :post, remote: true, style: 'color:#2E8B57' do%>
-                    <span>&#128077;</span>
-                  <%end%>  
-                <%end%>
+                <%= like_button_post(post)%>
               <% end %>
           </div>  
         </p> 
@@ -38,12 +29,6 @@
 
 <%= link_to "New Post", new_post_path, style: 'color:0000FF' %>
 
-<br><br><br>
+<br><br>
   
-
-<!-- Render flash messages -->
-<% flash.each do |key, value| %>
-  <div class="alert alert-<%= key %>">
-    <%= value %>
-  </div>
-<% end %>
+<%= render_flash_messages %>  
