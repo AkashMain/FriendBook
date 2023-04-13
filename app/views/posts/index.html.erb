@@ -8,16 +8,17 @@
       <li>
         <p>
           <%= post_author(post)%><br>
-          <%= link_to post.body, post, style: 'color:#191911'%>
+          <%= post.body%><br>
           <% if user_signed_in? && current_user.id==post.user.id%> 
             <%= delete_post(post) %><br>
           <%end%> 
-          <br>
           <div class="show-likes">
             Likes: <%= Like.where(likable_id: post.id, likable_type: "Post").count %><br>
               <% if user_signed_in? && current_user.id != post.user.id %>
                 <%= like_button_post(post)%>
               <% end %>
+          <br>    
+          <%= link_to 'Comments', post, style: 'color:#A0522D'%>
           </div>  
         </p> 
       </li>

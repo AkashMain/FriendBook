@@ -12,8 +12,10 @@
   <% else %>
     <p>No friends yet.</p>
   <% end %>
-</div>
 
 <% if current_user.id == @user.id %>
   <%= link_to "Friendship", 'http://localhost:3000/users/'+(@user.id).to_s+'/friendships'%>
 <%end%>
+
+
+

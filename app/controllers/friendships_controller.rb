@@ -63,10 +63,10 @@ class FriendshipsController < ApplicationController
     end
     
     def destroy 
-        @friendship = Friendship.find(parmas[:id])
+        @friendship = Friendship.find(params[:id])
         @friendship.destroy
         flash[:notcie] = 'Friend removed'
-        redirect_to users_path
+        redirect_to user_friendships_path
     end
     private
     

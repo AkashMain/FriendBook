@@ -25,6 +25,10 @@ module PostsHelper
         "-> #{comment.user.fname}"
     end
 
+    def delete_comment(post,comment)
+        link_to 'delete', post_comment_path(@post,comment), method: :delete, data: {confirm: "Do you want to delete this comment"}, style: 'color:#E34234'
+    end
+
     def like_button_comment(post,comment)
         like = Like.find_by(user_id: current_user.id, likable_type: "Comment", likable_id: comment.id)
         if like.present?
