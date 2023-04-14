@@ -1,15 +1,9 @@
-    <div class="show-likes">
-      Likes: <%= post.likes.count %><br>
-        <% if user_signed_in? && current_user.id != post.user.id %>
-          <% like = Like.find_by(user_id: current_user.id, post_id: post.id) %>
-          <%if like.present?%>
-            <%= button_to post_like_path(like, post_id: post), method: :delete, remote: true, style: 'color:#E34234' do%>
-              <span>&#128078;</span>
-            <%end%>  
-          <%else%>
-            <%= button_to post_likes_path(post), method: :post, remote: true, style: 'color:#2E8B57' do%>
-              <span>&#128077;</span>
-            <%end%>  
-          <%end%>
-        <% end %>
-      </div>  
+
+
+<div class="show-likes">
+  Likes: <%= Like.where(likable_id: post.id, likable_type: "Post").count %><br>
+  <% if user_signed_in? && current_user.id != post.user.id %>
+      <%= like_button_post(post)%>
+  <% end %>
+  <br>    
+</div>

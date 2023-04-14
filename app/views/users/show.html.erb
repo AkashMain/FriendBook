@@ -14,7 +14,7 @@
   <% end %>
 
 <% if current_user.id == @user.id %>
-  <%= link_to "Friendship", 'http://localhost:3000/users/'+(@user.id).to_s+'/friendships'%>
+  <%= link_to 'Friendship',user_friendships_path(current_user)%>
 <%end%>
 
 

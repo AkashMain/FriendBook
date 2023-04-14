@@ -5,10 +5,7 @@ Rails.application.routes.draw do
   get 'users/show'
   root 'posts#index'
   get 'users/:user_id/friendships', to: 'friendships#index'
-  # post '/users/:user_id/friendships/:receiver_id/create_request', to: 'friendships#create_request', as: 'create_request'
 
-  # resources :users do 
-  #   resources :friendships
   resources :users do 
     resources :friendships , only: [:index, :show] do 
       member do 
@@ -27,6 +24,7 @@ Rails.application.routes.draw do
     resources :likes, only: [:create, :destroy] 
   end
 
+end
 
   # resources :users do
   #   member do
@@ -43,5 +41,3 @@ Rails.application.routes.draw do
   # get 'users/pending_friend_requests', to: 'users#pending_friend_requests', as: 'pending_friend_requests'
   # get 'users/friend_requests_received', to: 'users#friend_requests_received', as: 'friend_requests_received'
   # get 'users/friends', to: 'users#friends', as: 'friends'
-
-end

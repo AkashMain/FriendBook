@@ -1,0 +1,9 @@
+
+
+<div class='show-comment-likes'>
+    Likes: <%= Like.where(likable_type: "Comment", likable_id: comment.id).count%><br>
+    <%if user_signed_in? && current_user.id!=@post.user.id && current_user.id!=comment.user.id%>
+        <% like = Like.find_by(user_id: current_user.id, likable_type: "Comment", likable_id: comment.id)%>
+        <%= like_button_comment(@post,comment)%>      
+    <%end%>          
+</div>

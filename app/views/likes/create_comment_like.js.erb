@@ -1,0 +1,6 @@
+
+
+<% selector = ".show-comment-likes.for-comment-#{@likable.id}" %>
+
+$("<%= selector %>").html("<%= escape_javascript(render('showing_comment_likes', comment: @likable))%>");
+

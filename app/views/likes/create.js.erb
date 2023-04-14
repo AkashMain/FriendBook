@@ -1,5 +1,5 @@
 
-$('.show-posts').hide();
+<% selector = ".show-likes.for-post-#{@likable.id}" %>
 
-$('#showing-posts').html("<%= escape_javascript(render('showing_posts'))%>");
+$("<%= selector %>").html("<%= escape_javascript(render('showing_likes', post: @likable))%>");
 
