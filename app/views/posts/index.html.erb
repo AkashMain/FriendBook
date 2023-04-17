@@ -34,5 +34,7 @@
 <%= link_to "New Post", new_post_path, style: 'color:0000FF' %>
 
 <br><br>
-  
-<%= render_flash_messages %>  
+<div id="infinite-scrolling">
+  <%= will_paginate @posts %>
+</div>
+
