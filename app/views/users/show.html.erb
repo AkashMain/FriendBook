@@ -14,8 +14,15 @@
   <% end %>
 
 <% if current_user.id == @user.id %>
-  <%= link_to 'Friendship',user_friendships_path(current_user)%>
+  <%= link_to 'Friendship',user_friendships_path(current_user), style: 'color:#006400'%>
+  <br><br>
 <%end%>
 
-
-
+<h2>Posts:-</h2>
+  <%if @posts.any?%>
+  <ul>
+    <%= render 'posts/posts'%>
+  </ul>  
+  <%else%>
+    <p>No posts yet.</p>
+  <%end%>  

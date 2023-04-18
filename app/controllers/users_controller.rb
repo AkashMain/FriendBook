@@ -8,7 +8,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @post = @user.posts.order(created_at: :desc)
+    @posts = @user.posts.order(created_at: :desc)
     @friends = @user.friends
     # @pending_friendship_requests_received = User.pending_requests.find(params[:id])
     # @accepted_friendship_requests_received = @user.accepted_requests

@@ -1,0 +1,24 @@
+<div class="show-posts">
+  <% @posts.each do |post| %>
+    <li>
+      <p>
+        <%= post_author(post)%><br>
+        <%= post.body%><br>
+        <% if post.image.attached? %>
+          <%= link_to image_tag(post.image), url_for(post.image), target: '_blank' %>
+        <% end %>
+        <% if user_signed_in? && current_user.id==post.user.id%> 
+          <%= delete_post(post) %><br>
+        <%end%> 
+        <div class="show-likes for-post-<%=post.id%>">
+          Likes: <%= Like.where(likable_id: post.id, likable_type: "Post").count %><br>
+            <% if user_signed_in? && current_user.id != post.user.id %>
+              <%= like_button_post(post)%>
+            <% end %>
+        <br>    
+        </div>  
+        <%= link_to 'Comments', post, style: 'color:#A0522D'%>
+      </p> 
+    </li>
+  <% end %>
+</div>
