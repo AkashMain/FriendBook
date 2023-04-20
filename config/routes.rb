@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   root 'posts#index'
   get 'users/:user_id/friendships', to: 'friendships#index'
 
+  mount ActionCable.server => '/cable'
+
   resources :users do 
     resources :friendships , only: [:index, :show] do 
       member do 
@@ -22,6 +24,10 @@ Rails.application.routes.draw do
       resources :likes, only: [:create, :destroy]
     end  
     resources :likes, only: [:create, :destroy] 
+  end
+
+  resources :conversations, only: [:index, :create] do
+    resources :messages, only: [:index, :create]
   end
 
 end

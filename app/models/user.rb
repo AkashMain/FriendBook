@@ -7,6 +7,9 @@ class User < ApplicationRecord
   has_many :posts
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
+  has_many :messages
+  has_many :conversations, through: :messages
+
 
   has_many :sent_friend_requests, class_name: 'Friendship', foreign_key: 'sender_id', inverse_of: 'sender', dependent: :destroy   
   has_many :sent_friends, through: :sent_friend_requests, source: :receiver     #user's friends req
@@ -26,13 +29,13 @@ class User < ApplicationRecord
     # return sent_friend_requests.where(status: 'accepted').map(&:receiver) + received_friend_requests.where(status: 'accepted').map(&:sender)
   end
   
+  scope :pending_requests, ->{ joins(:received_friend_requests).where(friendships: {status: :pending})}
+  scope :accepted_requests, ->{ joins(:received_friend_requests).where(friendships: {status: :accepted})}
+  scope :declined_requests, ->{ joins(:received_friend_requests).where(friendships: {status: :declined})}
   # scope :pending_requests, ->{received_friend_requests.where(status: :pending)}  ->undefined local variable or method `received_friend_requests' 
   # scope :accepted_requests, ->{received_friend_requests.where(status: :accepted)}
   # scope :declined_requests, ->{received_friend_requests.where(status: :declined)}
 
-  scope :pending_requests, ->{ joins(:received_friend_requests).where(friendships: {status: :pending})}
-  scope :accepted_requests, ->{ joins(:received_friend_requests).where(friendships: {status: :accepted})}
-  scope :declined_requests, ->{ joins(:received_friend_requests).where(friendships: {status: :declined})}
 
   # has_many :accepted_requests, ->{where(status: :accepted)}, class_name: 'Friendship', foreign_key: ''
   # has_many :declined_requests, ->{where(status: :declined)}, class_name: 'Friendship', foreign_key: ''

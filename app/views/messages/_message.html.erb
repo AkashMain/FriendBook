@@ -1,0 +1,7 @@
+<div class="message">
+  <div class="message-meta">
+    <%= message.user.fname %>:
+    <%= message.created_at.strftime('%b %e, %l:%M %p') %>
+  </div>
+  <div class="message-body"><%= message.body %></div>
+</div>

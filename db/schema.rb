@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_13_125816) do
+ActiveRecord::Schema.define(version: 2023_04_18_102928) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -43,6 +43,15 @@ ActiveRecord::Schema.define(version: 2023_04_13_125816) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
+  create_table "conversations", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "sender_id"
+    t.integer "receiver_id"
+    t.index ["receiver_id"], name: "index_conversations_on_receiver_id"
+    t.index ["sender_id"], name: "index_conversations_on_sender_id"
+  end
+
   create_table "friendships", force: :cascade do |t|
     t.integer "sender_id", null: false
     t.integer "receiver_id", null: false
@@ -61,6 +70,16 @@ ActiveRecord::Schema.define(version: 2023_04_13_125816) do
     t.integer "likable_id"
     t.index ["likable_type", "likable_id"], name: "index_likes_on_likable_type_and_likable_id"
     t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.text "body"
+    t.integer "user_id"
+    t.integer "conversation_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["conversation_id"], name: "index_messages_on_conversation_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "posts", force: :cascade do |t|

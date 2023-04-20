@@ -1,0 +1,4 @@
+<%= form_for([@conversation, @conversation.messages.new], remote: true) do |f| %>
+  <%= f.text_area :body, placeholder: "Type your message here", class: "form-control", required: true %>
+  <%= f.submit "Send", class: "btn btn-primary mt-2"%>
+<% end %>

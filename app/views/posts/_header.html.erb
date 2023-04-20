@@ -18,13 +18,15 @@
             <%= link_to "Add posts", new_post_path, class: "nav-link"%>
         </li>
         <li class="nav-item">
+            <%= link_to "Chats", conversations_path, class: "nav-link"%>
+        </li>
+        <li class="nav-item">
             <%= link_to "Edit Profile",edit_user_registration_path, class: "nav-link"%>
         </li>
         <li class="nav-item">
             <%= link_to "Sign Out",destroy_user_session_path, method: :delete, class: "nav-link"%>
         </li> 
       <% else%>
-        <%# <%= redirect_to articles_set_path %> %>
         <li class="nav-item">
             <%= link_to "Sign In",new_user_session_path, class: "nav-link"%>
         </li> 

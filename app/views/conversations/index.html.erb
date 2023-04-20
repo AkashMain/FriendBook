@@ -1,0 +1,33 @@
+
+<%= "Logged in as #{current_user.fname}"%><br><br>
+
+<h2>Friends</h2>
+
+<% if @friends.any? %>
+  <ul>
+    <% @friends.each do |friend| %>
+      <li>
+        <%= link_to friend.fname, conversations_path(receiver_id: friend.id), method: :post , remote: true%>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>You don't have any friends yet.</p>
+<% end %>
+
+
+
+<h2>Your Conversations</h2>
+
+<% if @conversations.any? %>
+  <ul>
+    <% @conversations.each do |conversation| %>
+      <li>
+        <%= link_to "#{conversation.sender.fname} & #{conversation.receiver.fname}", conversation_messages_path(conversation) %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>You don't have any conversations yet.</p>
+  
+<% end %>
