@@ -35,7 +35,7 @@ class CommentsController < ApplicationController
     redirect_to @post, notice: "Comment was successfuly deleted"
   end
     
-  private 
+  private
 
   def set_post 
     @post = Post.find(params[:post_id])

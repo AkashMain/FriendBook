@@ -2,7 +2,8 @@
     <% @posts.each do |post| %>
       <li>
         <p>
-          <%= "=>> #{post.user.fname}"%><br>
+          <%= link_to "-> #{post.user.fname}", user_path(post.user), style: 'color:#2F4F4F'%>
+          <br>
           <%= post.body%><br>
           <% if post.image.attached? %>
             <%= image_tag post.image %>
