@@ -22,7 +22,6 @@ class FriendshipsController < ApplicationController
             respond_to do |format|
                 format.html {redirect_to user_friendships_path, notice: "Friend request sent to #{@suggested_user.fname}"}
                 format.js 
-            # render file: '/create_request.js.erb'
             end
         else
             respond_to do |format|
@@ -52,6 +51,9 @@ class FriendshipsController < ApplicationController
         @friends_show = Friendship.friends_of(current_user)
         @friendship = Friendship.find(params[:id])
         if @friendship.declined!    
+            # Enqueue the job to delete the friendship record in 10 minutes
+            DeleteFriendshipJobJob.set(wait_until: 1.minutes.from_now).perform_later(@friendship.id)
+
             flash[:success] = 'Friend request declined'
         else
             flash[:error] = 'Error while declining friend request'

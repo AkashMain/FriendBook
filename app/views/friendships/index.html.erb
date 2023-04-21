@@ -70,10 +70,10 @@
       <li>
         <% if f.sender.fname==current_user.fname%>
           <%= f.receiver.fname%>
-          <%= link_to 'Destroy friendship', user_friendship_path(current_user, f), method: :delete, data: { confirm: "Are you sure you want to unfriend #{f.receiver.fname}?" }, style: 'color:#CD5C5C'%>
+          <%= link_to 'Destroy friendship', user_friendship_path(current_user, f), method: :delete, data: { confirm: "Do you want to unfriend #{f.receiver.fname}?" }, style: 'color:#CD5C5C'%>
         <%else%>
           <%= f.sender.fname%>
-          <%= link_to 'Destroy friendship', user_friendship_path(current_user, f), method: :delete, data: { confirm: "Are you sure you want to unfriend #{f.receiver.fname}?" }, style: 'color:#CD5C5C'%>
+          <%= link_to 'Destroy friendship', user_friendship_path(current_user, f), method: :delete, data: { confirm: "Do you want to unfriend #{f.sender.fname}?" }, style: 'color:#CD5C5C'%>
         <%end%>
       </li>
     <%end%>  

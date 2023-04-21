@@ -25,7 +25,7 @@ module FriendshipsHelper
                 link_to 'Destroy friendship', user_friendship_path(current_user, f), method: :delete, data: { confirm: "Are you sure you want to unfriend #{f.receiver.fname}?" }, style: 'color:#CD5C5C'
             else
                 f.sender.fname
-                ink_to 'Destroy friendship', user_friendship_path(current_user, f), method: :delete, data: { confirm: "Are you sure you want to unfriend #{f.receiver.fname}?" }, style: 'color:#CD5C5C'
+                ink_to 'Destroy friendship', user_friendship_path(current_user, f), method: :delete, data: { confirm: "Are you sure you want to unfriend #{f.sender.fname}?" }, style: 'color:#CD5C5C'
             end
           end
     end
