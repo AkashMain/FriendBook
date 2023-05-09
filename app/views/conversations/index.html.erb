@@ -7,6 +7,9 @@
   <ul>
     <% @friends.each do |friend| %>
       <li>
+        <%if friend.profile_picture.attached? %>
+          <%= image_tag friend.profile_picture, class: "avatar" %>
+        <%end%>
         <%= link_to "#{friend.fname}", user_path(friend), style: 'color:#C71585'%><br>
         <%= link_to "Start Conversation with #{friend.fname}", conversations_path(receiver_id: friend.id), method: :post , remote: true, style: 'color:#2F4F4F'%>
       </li>

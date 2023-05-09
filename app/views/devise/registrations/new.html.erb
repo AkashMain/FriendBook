@@ -13,7 +13,11 @@
     <%= f.text_field :lname, autofocus: true, autocomplete: "lname" %>
   </div>
   <br>
-
+  <div class="field">
+    <%= f.label :profile_picture %>
+    <%= f.file_field :profile_picture, autofocus: true, autocomplete: "profile_picture" %>
+  </div>
+  <br>
   <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>

@@ -18,14 +18,18 @@ class UsersController < ApplicationController
   private 
   
   def user_params 
-    params.require(:user).permit(:email,:password,:password_confirmation)
+    params.require(:user).permit(:email, :password, :password_confirmation, :profile_picture)
   end
-
-  # def current_user
-  #   @current_user ||= User.find(session[:user_id]) if session[:user_id]
-  # end
   
+  #@user.profile_picture.purge    delete profile_picture 
+       
 end
+
+
+
+# def current_user
+#   @current_user ||= User.find(session[:user_id]) if session[:user_id]
+# end
 
 # def sent_friend_request
 #   @friendship = Friendship.new(sender_id: current_user.id, receiver_id: params[:receiver_id])
