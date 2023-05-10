@@ -70,6 +70,7 @@ gem 'will_paginate'
 gem 'sidekiq', '~> 7.0', '>= 7.0.9'
 gem 'activeadmin'
 gem 'mini_magick', '~> 4.12'
+
 # gem 'bootstrap-will_paginate', '~> 0.0.10'
 # gem 'bootstrap-sass', '~> 3.0.3.0'
 # gem 'kaminari'

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   devise_for :users
@@ -30,6 +31,12 @@ Rails.application.routes.draw do
 
   resources :conversations, only: [:index, :create] do
     resources :messages, only: [:index, :create]
+  end
+
+  namespace :api do 
+    namespace :v1 do 
+      resources :users, only: [:index, :show, :create]
+    end
   end
 
 end
