@@ -1,6 +1,12 @@
 <%= "Logged in as #{current_user.fname}"%><br><br>
 
 <h1>All Posts</h1>
+<%= form_tag posts_path, :method => 'get', :id => "postsSearch", remote: true do %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :name => nil,class: 'btn btn-outline-success' %>
+  </p>
+<%end%>  
 
 <ul>
   <div class="show-posts">
