@@ -11,11 +11,11 @@
       <ul>
         <% @pending_requests.each do |request| %>
           <li id="friend-request- <%= request.id %>">
-            <%= link_to request.sender.fname, request.sender %>
+            <%= link_to request.sender.fname, request.sender, style: 'color:#4682B4' %>
             <br>
-            <%= link_to "Accept", accept_request_user_friendship_path(request.id, user_id: current_user), class: "accept-button", method: :put, remote: true %>
+            <%= link_to "Accept", accept_request_user_friendship_path(request.id, user_id: current_user), class: "accept-button", method: :put, remote: true, style: 'color:#006400' %>
             <br>
-            <%= link_to "Decline", decline_request_user_friendship_path(request.id, user_id: current_user), class: "decline-button", method: :put, remote: true %>
+            <%= link_to "Decline", decline_request_user_friendship_path(request.id, user_id: current_user), class: "decline-button", method: :put, remote: true, style: 'color:#CD5C5C' %>
           </li>
         <% end %>
       </ul>
