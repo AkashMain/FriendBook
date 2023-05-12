@@ -3,6 +3,8 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+  
+  # attr_accessor :full_name       
 
   has_many :posts
   has_many :comments, dependent: :destroy
@@ -25,28 +27,21 @@ class User < ApplicationRecord
   has_many :accepted_received_friend_requests, -> { where(status: 'accepted') }, class_name: 'Friendship', foreign_key: 'receiver_id', inverse_of: 'receiver', dependent: :destroy
   has_many :accepted_received_friends, through: :accepted_received_friend_requests, source: :sender    #user's received friends req
 
+  #setter method
+  def full_name  
+    "#{self.fname} #{self.lname}"
+  end
+
+  #getter method
+  def full_name=(val)
+    parts = val.split()
+    self.fname = parts.first
+    self.lname = parts.second
+  end 
+  
   def friends 
     accepted_sent_friends + accepted_received_friends            #both working
     # return sent_friend_requests.where(status: 'accepted').map(&:receiver) + received_friend_requests.where(status: 'accepted').map(&:sender)
   end
   
-  scope :pending_requests, ->{ joins(:received_friend_requests).where(friendships: {status: :pending})}
-  scope :accepted_requests, ->{ joins(:received_friend_requests).where(friendships: {status: :accepted})}
-  scope :declined_requests, ->{ joins(:received_friend_requests).where(friendships: {status: :declined})}
-  # scope :pending_requests, ->{received_friend_requests.where(status: :pending)}  ->undefined local variable or method `received_friend_requests' 
-  # scope :accepted_requests, ->{received_friend_requests.where(status: :accepted)}
-  # scope :declined_requests, ->{received_friend_requests.where(status: :declined)}
-
-
-  # has_many :accepted_requests, ->{where(status: :accepted)}, class_name: 'Friendship', foreign_key: ''
-  # has_many :declined_requests, ->{where(status: :declined)}, class_name: 'Friendship', foreign_key: ''
-
-
 end
-#users' friend
-# friends = current_user.sent_friend_requests.where(status: 'accepted').map(&:receiver) + current_user.received_friend_requests.where(status: 'accepted').map(&:sender)
-# user = User.find(1)
-# friends = user.sent_friends+user.received_friends
-# OR
-# has_many :friendships
-# has_many :friends, through: :friendships                 friends->user's friends
