@@ -6,7 +6,8 @@ module Api
  
             def index 
                 @users = User.all
-                render json: @users, each_serializer: UserSerializer
+                # render json: @users, each_serializer: UserSerializer        #active_model_serializer
+                render 'api/v1/index.json.jbuilder'                           #jbuilder
             end
             
             def show 

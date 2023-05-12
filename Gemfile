@@ -21,7 +21,7 @@ gem 'coffee-rails', '~> 4.2'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.5'
+# gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
 gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
@@ -70,8 +70,8 @@ gem 'will_paginate'
 gem 'sidekiq', '~> 7.0', '>= 7.0.9'
 gem 'activeadmin'
 gem 'mini_magick', '~> 4.12'
-gem 'active_model_serializers', '~> 0.10.13'
-
+# gem 'active_model_serializers', '~> 0.10.13'
+gem 'jbuilder', '~> 2.11', '>= 2.11.5'
 # gem 'bootstrap-will_paginate', '~> 0.0.10'
 # gem 'bootstrap-sass', '~> 3.0.3.0'
 # gem 'kaminari'
