@@ -1,11 +1,12 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+  # devise :database_authenticatable, :registerable,
+  #        :recoverable, :rememberable, :validatable
   
   # attr_accessor :full_name       
 
+  has_secure_password
   has_many :posts
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
@@ -44,4 +45,17 @@ class User < ApplicationRecord
     # return sent_friend_requests.where(status: 'accepted').map(&:receiver) + received_friend_requests.where(status: 'accepted').map(&:sender)
   end
   
+  def jwt_payload
+    { user_id: id }
+  end
+  
+  # def authenticate(password)
+  #   # Compare the provided password with the stored password_digest
+  #   if BCrypt::Password.new(password_digest) == password
+  #     true
+  #   else
+  #     false
+  #   end
+  # end
+
 end

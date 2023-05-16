@@ -17,12 +17,29 @@ module Api
             end
             
             def create
-                @user = User.new(user_params)
-                if @user.save
-                  render json: @user, status: :created
+              debugger
+                @user = User.create(user_params)
+                # if @user.save
+                # if @user.save && user.authenticate(params[:password])
+                if @user.valid?
+                  token = encode_token(user_id: @user.id)
+                  render json: {user: @user, token: token}, status: :created
                 else
                   render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
                 end
+            end
+
+            def login 
+
+              # puts "Email: #{user_params[:email]}"
+              # puts "Password: #{user_params[:password]}"
+              @user = User.find_by(email: user_params[:email])
+              if @user && @user.authenticate(user_params[:password])
+                token = encode_token(user_id: @user.id)
+                render json: {user: @user, token: token}, status: :ok
+              else
+                render json: {error: 'Invalid email or password'}, status: :unprocessable_entity
+              end
             end
 
             def update
@@ -42,9 +59,14 @@ module Api
             
             private
 
+            def encode_token(payload)
+              JWT.encode(payload, Rails.application.secrets.secret_key_base)    
+            end
+
             def user_params
               params.require(:user).permit(:email, :password, :password_confirmation, :fname, :lname, :full_name)
             end
+
         end
     end
 end
