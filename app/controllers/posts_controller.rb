@@ -24,13 +24,16 @@ class PostsController < ApplicationController
 
   def create
     @post = current_user.posts.build(post_params)
+    CreateDelayedPostJob.set(wait: 10.seconds).perform_later(current_user.id,post_params)
+    redirect_to posts_path
     
-    if @post.save
-      flash[:notice] = "Post was successfully created"
-      redirect_to posts_path
-    else
-      render :new
-    end
+    # if @post.save
+    #   # CreateDelayedPostJob.set(wait_until: 1.minutes.from_now).perform_later(@post.id)
+    #   flash[:notice] = "Post was successfully created"
+
+    # else
+    #   render :new
+    # end
   end
 
   def destroy 
