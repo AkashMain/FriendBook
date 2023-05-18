@@ -6,4 +6,10 @@ RSpec.describe User, type: :model do
   it "can run tests" do 
     expect(false).to be(false)
   end
+
+  it "must have name" do
+    user11= FactoryBot.create(:user) 
+    expect(user11.fname).to eq("John")
+  end
+
 end
