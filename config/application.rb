@@ -14,7 +14,7 @@ module Friendbook
     config.load_defaults 5.2
     config.active_job.queue_adapter = :sidekiq
     config.assets.precompile += %w[active_admin.scss]
-
+    config.middleware.use Warden::Manager
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading

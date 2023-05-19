@@ -27,12 +27,16 @@ class User < ApplicationRecord
   has_many :accepted_received_friend_requests, -> { where(status: 'accepted') }, class_name: 'Friendship', foreign_key: 'receiver_id', inverse_of: 'receiver', dependent: :destroy
   has_many :accepted_received_friends, through: :accepted_received_friend_requests, source: :sender    #user's received friends req
 
-  #setter method
+  validates :fname, presence: true
+  # validates :lname, presence: true
+  # validates :email, presence: true
+
+  #getter method
   def full_name  
     "#{self.fname} #{self.lname}"
   end
 
-  #getter method
+  #setter method
   def full_name=(val)
     parts = val.split()
     self.fname = parts.first

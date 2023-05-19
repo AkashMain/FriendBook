@@ -41,6 +41,7 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'factory_bot_rails', '~> 6.2'
   gem 'shoulda-matchers'
+  # gem 'rails-controller-testing', '~> 1.0', '>= 1.0.5'
 end
 
 group :development do
@@ -59,6 +60,7 @@ group :test do
   # # Easy installation and use of chromedriver to run system tests with Chrome
   # gem 'chromedriver-helper'
   gem 'rspec-rails'
+  gem 'rails-controller-testing', '~> 1.0', '>= 1.0.5'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -76,6 +78,8 @@ gem 'mini_magick', '~> 4.12'
 gem 'active_model_serializers', '~> 0.10.13'
 gem 'bcrypt', '~> 3.1', '>= 3.1.18'
 gem 'jwt'
+gem 'simplecov', require: false, group: :test
+gem 'warden', '~> 1.2', '>= 1.2.9'
 # gem 'devise-jwt', '~> 0.11.0'
 # gem 'bootstrap-will_paginate', '~> 0.0.10'
 # gem 'bootstrap-sass', '~> 3.0.3.0'
