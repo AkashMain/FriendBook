@@ -2,7 +2,8 @@
 
 class PostsController < ApplicationController
   before_action :authenticate_user!
-  
+  # protect_from_forgery except: :index
+
   def index
     @posts = Post.all.searching(params[:search]).order(created_at: :desc).paginate(page: params[:page], per_page: 5)
     # @posts = Post.all.order(created_at: :desc).page(params[:page]).per(10)
@@ -41,24 +42,6 @@ class PostsController < ApplicationController
     @post.destroy
     flash[:notice] = "Post was successfult deleted"
     redirect_to root_path
-  end
-
-  def like 
-    @like = current_user.likes.new(post_id :@post.id)
-    if @like.save 
-      redirect_back fallback_location: root_path, notice: 'Post was successfully liked.'
-    else
-      redirect_back fallback_location: root_path, alert: 'Error liking post.'
-    end 
-  end
-  
-  def unlike
-    @like = current_user.likes.find_by(post_id: @post.id)
-    if @like.destroy
-      redirect_back fallback_location: root_path, notice: 'Post was successfully unliked.'
-    else
-      redirect_back fallback_location: root_path, alert: 'Error unliking post.'
-    end
   end
 
   private 
