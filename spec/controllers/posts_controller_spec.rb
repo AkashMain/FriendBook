@@ -37,6 +37,8 @@ RSpec.describe PostsController, type: :controller do
             get :index 
             expect(assigns(:posts).total_pages).to eq(2)
             expect(assigns(:posts).current_page).to eq(1)
+            # binding.pry
+            expect(assigns(:posts).length).to eq(5)
 
         end
 
@@ -84,14 +86,14 @@ RSpec.describe PostsController, type: :controller do
         end
     end
 
-    describe 'GET#create' do 
+    describe 'POST#create' do 
 
         context 'with valid parameters' do
             let(:valid_params) do
                 { post: { body: 'Hello, world!' } }
             end
             # let(:valid_params) {FactoryBot.create(:post, body: "Hello, world!", user: user0)}
-  
+            
             it 'creates a new post' do
                 expect {
                     post :create, params: valid_params

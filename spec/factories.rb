@@ -10,5 +10,6 @@ FactoryBot.define do
     end
 
     factory :comment do 
+      content {'OLA'}
     end
 end
