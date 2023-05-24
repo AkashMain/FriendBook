@@ -7,13 +7,11 @@ class Comment < ApplicationRecord
   validate :cant_comment_own_post
 
   def cant_comment_own_post
+    return unless post
+
     if user_id == post.user_id
       errors.add(:user_id, "User can not comment on his own post") 
     end
-  end
-
-  def deletable_by?(user)
-    user == self.user
   end
   
   # optional: add a default scope to sort comments by creation date

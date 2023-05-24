@@ -11,6 +11,8 @@ RSpec.describe PostsController, type: :controller do
       sign_in user
       request.headers['Authorization'] = "Bearer #{token}"
     end
+    # before(:each)
+    # before(:all)
   
     def generate_token(user_id)
       payload = { user_id: user_id }
