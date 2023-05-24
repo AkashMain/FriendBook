@@ -61,6 +61,7 @@ group :test do
   gem 'rails-controller-testing', '~> 1.0', '>= 1.0.5'
   gem 'factory_bot_rails', '~> 6.2'
   gem 'shoulda-matchers' 
+  
   #faker gem
   #API
   #mocking stubbing 

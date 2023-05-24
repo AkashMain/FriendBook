@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_24_103702) do
+ActiveRecord::Schema.define(version: 2023_05_16_075227) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"

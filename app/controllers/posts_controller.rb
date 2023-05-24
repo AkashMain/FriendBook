@@ -1,21 +1,23 @@
 
 
 class PostsController < ApplicationController
-  before_action :authenticate_user!
+  skip_before_action :authenticate_user!
   # protect_from_forgery except: :index
 
   def index
     @posts = Post.all.searching(params[:search]).order(created_at: :desc).paginate(page: params[:page], per_page: 5)
     # @posts = Post.all.order(created_at: :desc).page(params[:page]).per(10)
-    respond_to do |format|
-      format.html
-      format.js
-    end
+    render json: {posts: @posts}
+    # respond_to do |format|
+    #   format.html
+    #   format.js
+    # end
   end
 
   def show
     @post = Post.find(params[:id])
-    @comment = Comment.new
+    render json: {post: @post}
+    # @comment = Comment.new
   end
 
   def new

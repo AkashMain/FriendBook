@@ -13,7 +13,6 @@ class User < ApplicationRecord
   has_many :conversations, through: :messages
   has_one_attached :profile_picture
 
-
   has_many :sent_friend_requests, class_name: 'Friendship', foreign_key: 'sender_id', inverse_of: 'sender', dependent: :destroy   
   has_many :sent_friends, through: :sent_friend_requests, source: :receiver     #user's friends req
   
@@ -47,5 +46,11 @@ class User < ApplicationRecord
     accepted_sent_friends + accepted_received_friends            #both working
     # return sent_friend_requests.where(status: 'accepted').map(&:receiver) + received_friend_requests.where(status: 'accepted').map(&:sender)
   end
+
+  # def generate_token
+  #   token = SecureRandom.hex(32) # Generate a random string token
+  #   tokens.create(token: token) # Create a new token associated with the user
+  #   token # Return the generated token
+  # end
   
 end
