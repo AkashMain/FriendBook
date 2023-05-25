@@ -17,3 +17,9 @@ class Comment < ApplicationRecord
   # optional: add a default scope to sort comments by creation date
   default_scope -> { order(created_at: :asc) }
 end
+
+#PUNDIT gem
+#CANCAN gem  
+
+ #features of factory
+#transient

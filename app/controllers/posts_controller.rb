@@ -16,6 +16,7 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+    authorize @post
     render json: {post: @post}
     # @comment = Comment.new
   end
@@ -27,7 +28,10 @@ class PostsController < ApplicationController
 
   def create
     @post = current_user.posts.build(post_params)
-    
+
+    authorize @post                       #pundit
+    # authorize! :create, @post               #cancancan
+
     if @post.save
       flash[:notice] = "Post was successfully created"
       redirect_to posts_path
@@ -41,6 +45,7 @@ class PostsController < ApplicationController
     # unless @post.editable_by?(current_user)
     #   redirect_to @post, alert: "You are not authorized to delete this post."
     # end
+    authorize @post
     @post.destroy
     flash[:notice] = "Post was successfult deleted"
     redirect_to root_path
