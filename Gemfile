@@ -93,6 +93,7 @@ gem 'simplecov', require: false, group: :test
 gem 'warden', '~> 1.2', '>= 1.2.9'
 gem 'pundit'
 gem 'cancancan', '~> 3.5'
+gem "letter_opener", group: :development
 # gem 'devise-jwt', '~> 0.11.0'
 # gem 'bootstrap-will_paginate', '~> 0.0.10'
 # gem 'bootstrap-sass', '~> 3.0.3.0'
