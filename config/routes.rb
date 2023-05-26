@@ -45,6 +45,10 @@ Rails.application.routes.draw do
   end
 
   get "/posts/generate_pdf", to: "posts#generate_pdf"
+  get '/data/download_csv', to: 'data#download_csv'
+  get "/data/generate_pdf", to: "data#generate_pdf"
+
+
 
   # if Rails.env.development?
   #   mount LetterOpenerWeb::Engine, at: "/letter_opener"

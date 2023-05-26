@@ -95,7 +95,7 @@ gem 'pundit'
 gem 'cancancan', '~> 3.5'
 gem "letter_opener", group: :development
 gem 'prawn', '~> 2.4' 
-
+gem 'csv', '~> 3.2', '>= 3.2.6'
 
 
 # gem 'devise-jwt', '~> 0.11.0'

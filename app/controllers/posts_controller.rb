@@ -7,19 +7,19 @@ class PostsController < ApplicationController
   def index
     @posts = Post.all.searching(params[:search]).order(created_at: :desc).paginate(page: params[:page], per_page: 5)
     # @posts = Post.all.order(created_at: :desc).page(params[:page]).per(10)
-    # render json: {posts: @posts}
+    render json: {posts: @posts}
     # respond_to do |format|
     #   format.html
     #   format.js
     # end
-    respond_to do |format|
-      format.pdf do 
-        pdf = Prawn::Document.new
-        pdf.text "PDF generation"
+    # respond_to do |format|
+    #   format.pdf do 
+    #     pdf = Prawn::Document.new
+    #     pdf.text "PDF generation"
     
-        send_data pdf.render, filename: "document.pdf", type: "application/pdf", disposition: "inline"
-      end
-    end
+    #     send_data pdf.render, filename: "document.pdf", type: "application/pdf", disposition: "inline"
+    #   end
+    # end
 
   end
 
