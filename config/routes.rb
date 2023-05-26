@@ -44,6 +44,8 @@ Rails.application.routes.draw do
     end
   end
 
+  get "/posts/generate_pdf", to: "posts#generate_pdf"
+
   # if Rails.env.development?
   #   mount LetterOpenerWeb::Engine, at: "/letter_opener"
   # end
