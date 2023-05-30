@@ -26,3 +26,12 @@ end
 # sti
 
 # sidekiq
+
+
+#docker 
+#graphql
+#template integration 
+#turbo link
+#media query
+#scss
+#haml

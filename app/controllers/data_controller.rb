@@ -46,4 +46,3 @@ class DataController < ApplicationController
 end
 
 
-end

@@ -1,0 +1,43 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/app
+    # depends_on:
+    #   - db
+    environment:
+      - RAILS_ENV=development
+      - DATABASE_URL=sqlite3:///app/db/development.sqlite3
+      - REDIS_URL=redis://redis:6379/0
+
+  # db: 
+  #   image: ruby 
+
+  redis: 
+    image: redis
+    ports:
+      - '6379:6379'
+
+
+
+# version: '3': Specifies the version of the Docker Compose file format.
+# services: Defines the services (containers) that make up your application.
+# app: The configuration for the Rails application service.
+# build: Specifies the build context and Dockerfile for building the application image.
+# ports: Maps the container's port 3000 to the host machine's port 3000, allowing access to the Rails application.
+# volumes: Mounts the current directory (where the docker-compose.yml file resides) to the /app directory in the container, allowing live code reloading.
+# depends_on: Specifies that the app service depends on the db service, ensuring the database container is started before the application container.
+# environment: Sets environment variables for the Rails application, such as the RAILS_ENV and DATABASE_URL.
+# db: The configuration for the PostgreSQL database service.
+# image: Specifies the PostgreSQL Docker image to use.
+# environment: Sets environment variables for the PostgreSQL container, such as the username, password, and database name.
+# volumes: Mounts a volume to persist the database data.
+
+
+
+  

@@ -5,7 +5,7 @@ ActiveAdmin.setup do |config|
   # for each of the active admin pages.
   #
   config.site_title = "Friendbook"
-  config.register_stylesheet 'active_admin.scss'
+  # config.register_stylesheet 'active_admin.scss'
 
   # Set the link url for the title. For example, to take
   # users to your main site. Defaults to no link.
@@ -333,4 +333,10 @@ ActiveAdmin.setup do |config|
   # You can switch to using Webpacker here.
   #
   # config.use_webpacker = true
+
+  # config.clear_stylesheets!
+  config.register_stylesheet 'active_admin'
+
+  # config.clear_javascripts!
+  # config.register_javascript 'active_admin'
 end

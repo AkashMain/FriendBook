@@ -98,6 +98,7 @@ gem 'prawn', '~> 2.4'
 gem 'csv', '~> 3.2', '>= 3.2.6'
 
 
+
 # gem 'devise-jwt', '~> 0.11.0'
 # gem 'bootstrap-will_paginate', '~> 0.0.10'
 # gem 'bootstrap-sass', '~> 3.0.3.0'
