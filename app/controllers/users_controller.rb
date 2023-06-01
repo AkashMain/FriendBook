@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all.order(:fname)
-    UserMailer.example(User.new(email: 'bo@samurails.com')).deliver_now
+    # UserMailer.example(User.new(email: 'bo@samurails.com')).deliver_now
   end
 
   def show

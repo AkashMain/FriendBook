@@ -97,6 +97,11 @@ gem "letter_opener", group: :development
 gem 'prawn', '~> 2.4' 
 gem 'csv', '~> 3.2', '>= 3.2.6'
 
+gem 'haml'
+gem 'coffee-script-source', '~> 1.12', '>= 1.12.2'
+# gem 'therubyracer'
+# gem 'less-rails-bootstrap'
+gem 'sprockets', '~> 3.7.2'
 
 
 # gem 'devise-jwt', '~> 0.11.0'

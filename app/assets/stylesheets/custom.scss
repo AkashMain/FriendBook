@@ -1,0 +1,20 @@
+
+
+/* Styles for screens with a width less than or equal to 768px */
+
+@media (max-width: 768px) {
+    body {
+      background-color: lightblue;
+    }
+}
+
+/* Styles for screens with a width greater than 768px */
+@media (min-width: 769px) {
+    body {
+      background-color: lightgrey;
+    }
+}  
+
+.navbar-nav.ml-auto {
+  margin-left: auto;
+}

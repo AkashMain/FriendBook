@@ -35,3 +35,8 @@ end
 #media query
 #scss
 #haml
+#content_for
+
+
+
+
